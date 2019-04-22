@@ -1,3 +1,5 @@
+[TOC]
+
 # 7-1 Architecture with SASS
 
 - This architecture is designed for larger, multi-page websites.
@@ -58,11 +60,11 @@ element {
 ```css
 element {
   /* from frontmost to backmost image */
-  background-image: linear-gradient( 
-      								to right bottom,
-                      rgba(126, 213, 111, 0.8), 
-                      rgba(40, 180, 133, 0.8)),
-                      url('../img/hero.jpg');
+  background-image: linear-gradient(
+    to right bottom,
+    rgba(126, 213, 111, 0.8), 
+    rgba(40, 180, 133, 0.8)),
+    url('../img/hero.jpg');
 }
 ```
 
