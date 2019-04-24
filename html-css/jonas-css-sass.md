@@ -134,6 +134,21 @@ element {
 
 
 
+# Prevent a Transformed / Animated Element from Shuttering / Shaking
+
+```css
+element {
+  transition: all .2s;
+  backface-visibility: hidden;
+}
+
+element:hover {
+  transform: scale(1.1);
+}
+```
+
+
+
 # Formatting and Aligning a Button
 
 - To position a button, it is often good to use `display: inline-block;`. This will treat it like text, which means you can use `text-align: center;`. But it is also treated like a block element.
@@ -238,9 +253,10 @@ body {
 
 # BEM - Block Element Modifier
 
-- **Block** - a standalone component that is meaningful on its own
-- **Element** - part of a block that has no standalone meaning
-- **Modifier** - a different version of a block or an element
+- BEM relies on low-specificity selectors
+  - **Block** - a standalone component that is meaningful on its own
+  - **Element** - part of a block that has no standalone meaning
+  - **Modifier** - a different version of a block or an element
 
 
 
@@ -373,4 +389,56 @@ body {
 ```
 
 
+
+# The :not pseudo-selector
+
+- You can use the `:not` pseudo-selector to select every element of a certain type except for the one you specify. This is often useful for adding a bottom margin to every item except for the last one.
+
+```css
+/* Selects every li except for the last one */
+li:not(:last-child) {
+	margin-bottom: 3rem;
+}
+```
+
+
+
+# Attribute Selectors
+
+```css
+[class^="col-"] { ... } // selects classes that BEGIN with "col-"
+[class$="col-"] { ... } // selects classes that END with "col-"
+[class*="col-"] { ... } // selects classes that CONTAIN "col-" anywhere
+```
+
+
+
+# SASS: Calc function
+
+- If you insert a variable, you must use `#{$variable-name}`
+
+```scss
+.col-1-of-2 {
+	width: calc((100% - #{$gutter-horizontal}) / 2);
+}
+```
+
+
+
+# Clearfix
+
+- a clearfix is basically inserting an element after (using `::after`) and then clearing that element
+
+```scss
+@mixin clearfix {
+  &::after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+}
+
+/* then, when you want to insert the clearfix, use... */
+@include clearfix;
+```
 

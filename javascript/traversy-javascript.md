@@ -13,7 +13,10 @@ lis = Array.from(lis); // Converted to Array
 lis.forEach(...)
 ```
 
+
+
 # Multiple Element Selectors
+
 - A NodeList includes things like text nodes
 
 ```javascript
@@ -22,7 +25,10 @@ document.getElementsByTagName(); // returns HTMLCollection
 document.querySelectorAll(); // returns NodeList
 ```
 
+
+
 # .className vs .classList.contains()
+
 ```javascript
 function deleteItem(e) {
   /* The .className property requires you to match the
@@ -40,7 +46,10 @@ function deleteItem(e) {
 }
 ```
 
+
+
 # Local & Session Storage
+
 - Local storage - stays until you manually clear it
 - Session storage - stays until you close the browser
 - To view your storage: Open Dev Tools -> Application -> Storage
@@ -48,7 +57,10 @@ function deleteItem(e) {
 - Use JSON.stringify to save arrays and objects.
 - Use JSON.parse if you want to later pull out those arrays and objects
 
+
+
 # The .call() Method
+
 - `.call()` is a function that allows us to call another function from somewhere else in the current context
 ```javascript
 
@@ -72,7 +84,10 @@ function Customer(firstName, lastName, phone, membership) {
 }
 ```
 
+
+
 # Static Methods
+
 - A static method is one you can use without needing to instatiate an object. That is, you don't need to create an object from the class using `const ryan = new Person('Ryan');`. It's just a standalone method that you call with the name of the constructor function itself.
 ```javascript
 class Person {
@@ -94,7 +109,10 @@ constructor itself. No need for instantiation */
 console.log(Person.addNumbers(1, 2));
 ```
 
+
+
 # Sub-Classes: Extending Classes with 'Super'
+
 ```javascript
 class Person {
   constructor(firstName, lastName) {
@@ -112,3 +130,6 @@ class Customer extends Person {
   }
 }
 ```
+
+
+
