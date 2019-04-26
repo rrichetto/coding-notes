@@ -133,3 +133,86 @@ class Customer extends Person {
 
 
 
+# Asynchronous Programming
+
+- Most Async code you work with will be part of an API or library. You just have to handle the response in a certain way.
+  - XMLHttpRequest & Fetch
+  - jQuery Ajax, Axios, or other HTTP libraries
+
+
+
+- A few ways to handle Async code
+  - Callbacks
+  - Promises (ES6)
+  - Async/Await (ES2017) - allow us to write Async code and make them look like simple synchronous code
+
+
+
+# Ajax & XHR Introduction
+
+- AJAX: Asynchronous JavaScript and XML
+- It's not a language or a library or a framework.
+- It is a set of web technologies used to send and receive data asynchronously
+- It does not interefere with the current page
+- Ironically, JSON data has mostly replaced XML data, but we still refer to it as AJAX.
+
+![Screen Shot 2019-04-26 at 2.24.52 AM](/Users/ryanrichetto/Desktop/Screen Shot 2019-04-26 at 2.24.52 AM.png)
+
+
+
+### The XmlHttpRequest (XHR) Object
+
+- this is the core in AJAX
+- It is an API in the form of an object
+- It is provided by the browsers JS environment
+- It's methods transfer data between client / server
+- It can be used with other protocals than HTTP
+- It can work with data other than XML (JSON, plain text)
+
+
+
+### Libraries and Methods to make HTTP Requests
+
+- AJAX and XHR (older but still important to learn)
+- Fetch API (suggested since its part of vanilla JS)
+- Axios (library)
+- Superagent (library)
+- jQuery (library)
+- Node HTTP
+
+
+
+# Rest APIs and HTTP Requests
+
+### What is an API?
+
+- API: Application Programming Interface
+- A contract provided by one piece of software to another
+- Structured request and response
+
+### REST APIs
+
+- REST: Representational State Transfer
+- Architectural style for designing networked applications
+- Relies on a stateless, client-server protocol (almost always HTTP)
+- Treats server side objects (e.g. a blog post, a user, etc) as resources that can be created or destroyed
+- Can be used by virtually any programming language because it operates using HTTP requests and some standard like JSON
+- An API is the messenger, and then REST lets us use HTTP requests to format that message.
+- A REST API takes in multiple types of HTTP requests (GET, POST, UPDATE, DELETE)
+- All APIs have their own rules and structure
+
+### HTTP Requests
+
+- GET: Retreive data from a specified resource
+- POST: Submit data to be processed to a specified resource
+- PUT: Update a specified resource
+- DELETE: Delete a specified resource
+
+### API Endpoints
+
+- When you work with an API you will have endpoints
+- Endpionts are the URLs that you access to do certain things
+  - Example: http://someurl.com/api/users
+
+
+

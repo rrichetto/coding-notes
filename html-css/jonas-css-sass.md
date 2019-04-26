@@ -2,6 +2,7 @@
 
 # 7-1 Architecture with SASS
 
+- For an excellent breakdown/summary: <https://sass-guidelin.es/#the-7-1-pattern>
 - This architecture is designed for larger, multi-page websites.
 - 7 different folders for partial Sass files, and 1 main Sass file to import all other files into a complied CSS stylesheet.
 - The Seven Folders:
@@ -23,7 +24,7 @@
     - `_mixins.scss`
     - `_functions.scss`
   - `components` folder - reusable and independant blocks. Can be used anywhere.
-    - `button.scss`
+    - `_button.scss`
   - `layout` folder - global header, footer, etc. Should work on all pages.
     - `_header.scss`
   - `pages` - specific styles for a specific pages
@@ -209,8 +210,8 @@ You must pay attention to all three:
 
 ```css
 *,
-*::after,
-*::before {
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: inherit;
@@ -223,7 +224,7 @@ body {
 
 
 
-## Block, Inline, and Inline-Block Elements
+# Block, Inline, and Inline-Block Elements
 
 **Block**
 
@@ -253,7 +254,7 @@ body {
 
 # BEM - Block Element Modifier
 
-- BEM relies on low-specificity selectors
+- BEM relies on consistent, low-specificity selectors. This helps to avoid specificity issues in the cascade.
   - **Block** - a standalone component that is meaningful on its own
   - **Element** - part of a block that has no standalone meaning
   - **Modifier** - a different version of a block or an element
@@ -441,4 +442,25 @@ li:not(:last-child) {
 /* then, when you want to insert the clearfix, use... */
 @include clearfix;
 ```
+
+
+
+# How to give a heading (or any text) a gradient color
+
+```scss
+.heading {
+  display: inline-block;
+  background-image: linear-gradient(to right, $color-primary-light, $color-primary-dark);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+```
+
+
+
+# Responsive Images
+
+- For the sake of responsiveness, it is usually best to define the width of images in percentages (%), not pixels.
+
+
 
