@@ -259,7 +259,22 @@ body {
   - **Element** - part of a block that has no standalone meaning
   - **Modifier** - a different version of a block or an element
 
+# BEM Naming
 
+```html
+<nav class='navigation'>
+  <ul class='navigation__list'>
+      <!-- When referring to grandchild elements, it is bem convention to prefix the class with the block element's name, rather than the direct parent (Element) name -->
+      <li class='navigation__list-item'><a class='navigation__link' href="#">About Us</a></li>
+      <li class='navigation__list-item'><a class='navigation__link' href="#">Pricing</a></li>
+      <li class='navigation__list-item'><a class='navigation__link' href="#">Contact</a></li>
+  </ul>
+  <div class="navigation__buttons">
+      <a href="#" class="navigation__btn navigation__btn--main">Sign Up</a>
+      <a href="#" class="navigation__btn navigation__btn--hot">Get a quote</a>
+  </div>
+</nav>
+```
 
 # SASS: Functions - Lighten and Darken
 
@@ -274,8 +289,6 @@ element {
 }
 ```
 
-
-
 # SASS: Creating Your Own Functions
 
 ```scss
@@ -287,8 +300,6 @@ element {
   margin: divide(60, 2) * 1px;
 }
 ```
-
-
 
 # SASS: Basic Mixins
 
@@ -306,8 +317,6 @@ element {
 }
 ```
 
-
-
 #SASS: Mixins with Arguments
 
 ```scss
@@ -321,8 +330,6 @@ element {
   @include style-link-text(red);
 }
 ```
-
-
 
 # SASS: Extends
 
@@ -344,8 +351,6 @@ element {
 }
 ```
 
-
-
 # NPM: Installing SASS
 
 1. **In your terminal, navigate to the project folder**
@@ -355,8 +360,6 @@ element {
    1. The `--save-dev` is so that `package.json` will update and list `node-sass` under 'devDependencies'. A developer dependency is just a tool you use to develop your project. We only need SASS for development purposes. It is not required in the final output itself.
    2. If we were to use just the `--save` tag, it will save it in `package.json` under 'dependencies', not 'devDependencies'. For example, we would install jQuery with `npm install jquery --save`. This is because, unlike SASS, jQuery is required in the final output.
       1. To uninstall jQuery, you would run `npm uninstall jQuery --save`
-
-
 
 # Compile SASS Locally
 
@@ -368,16 +371,12 @@ element {
       1. The "watch" tag, `-w` is what watches your SCSS file for every save, so you don't have to keep manually typing `npm run complile:sass` for every change.
 4. **Run your `npm script` in the terminal by running `npm run compile:sass` (or whatever you named the script).**
 
-
-
 # NPM Package: Live Server
 
 - This package reloads our complete project as soon as we change any file in the project folder.
 - We want to install this package globally (`-g`) on our computer, so we can use it on all future projects and anywhere on our computer. To do this, on your terminal run `npm install live-server -g`
   - If you run into permission error (`ERR!`), simply add the word `sudo` in front of the command.
 - Since it is installed globally, we can call it directly from the command line. To run it, go to your project folder, then simply run `live-server` in the command line.
-
-
 
 # SCSS: rgba & Hex colors
 
@@ -388,8 +387,6 @@ body {
   background-color: rgba(#873984, 0.8);
 }
 ```
-
-
 
 # The :not pseudo-selector
 
@@ -402,8 +399,6 @@ li:not(:last-child) {
 }
 ```
 
-
-
 # Attribute Selectors
 
 ```css
@@ -411,8 +406,6 @@ li:not(:last-child) {
 [class$="col-"] { ... } // selects classes that END with "col-"
 [class*="col-"] { ... } // selects classes that CONTAIN "col-" anywhere
 ```
-
-
 
 # SASS: Calc function
 
@@ -423,8 +416,6 @@ li:not(:last-child) {
 	width: calc((100% - #{$gutter-horizontal}) / 2);
 }
 ```
-
-
 
 # Clearfix
 
@@ -443,8 +434,6 @@ li:not(:last-child) {
 @include clearfix;
 ```
 
-
-
 # How to give a heading (or any text) a gradient color
 
 ```scss
@@ -456,11 +445,93 @@ li:not(:last-child) {
 }
 ```
 
-
-
 # Responsive Images
 
 - For the sake of responsiveness, it is usually best to define the width of images in percentages (%), not pixels.
 
+# Responsive Images in HTML - <img> tags
+
+**Density Switching** - image changes based upon *screen resolution*. Serve a larger version of an image for higher resolution screen, and server a smaller version of the same image for a lower resolution screen.
+
+```html
+<img srcset="img/logo-green-1x.png 1x, img/logo-green-2x.png 2x">
+```
+
+- The `1x` and `2x` are density descriptors, for low and high resolution screens, respectively.
+- Remember to use `srcset` instead of `src`
 
 
+
+**Art Direction** - image changes based upon *screen width*. Use one image on one screen width, and another version (modified) of the image on another screen width
+
+```html
+<picture>
+	<source srcset="img/logo-green-small-1x.png 1x, img/logo-green-small-2x.png 2x" media="(max-width: 37.5em)">
+	<img srcset="img/logo-green-1x.png 1x, img/logo-green-2x.png 2x">
+</picture>
+```
+
+- The `picture` element allows us to define multiple sources
+- The `source` element allows us to write a media query, much like in CSS - `media="(max-width: 37.5em)"`
+- If the browser is less than 37.5em, it will use the image in the `source` tag.
+- If the browser is greater than 37.5em, it will use the image in the `img` tag.
+- Notice that within both the `source` and `img` tags, we are also using Density Switching (see above), in addition to Art Direction
+
+
+
+**Resolution Switching** - browser chooses the best image for the current viewport and pixel density situation.
+
+```html
+<img srcset="img/nat-1.jpg 300w, img/nat-1-large.jpg 1000w"
+     sizes="(max-width: 900px) 20vw, (max-width: 600px) 30vw, 300px"
+     src="img/nat-1-large.jpg">
+```
+
+
+
+- Width descriptors - `300w` , `1000w` - informs browswer of the width of the images in pixels
+- Sizes Attribute - informs the browser of the approximate width of the image at different viewport widths.
+- The added `src` attribute at the end is a fallback incase the user is using a browser that doesn't support this method. 
+
+# Responsive Images in CSS
+
+- We simply have to write media queries to load different images in different situations
+- The media queries will target device resolution (`min-resolution`), instead of the browser with (as in normal media queries)
+- 192 dots per inch is the Apple Retina Screen, and it is a general reference
+
+```css
+/* we use min-resolution, and then add a min-width because we don't need
+such a large image for smaller screen sizes */
+@media (min-resolution: 192dpi) and (min-width: 600px) {
+    background-image: linear-gradient(
+                      to right bottom,
+                      rgba($color-secondary-light, 0.8),
+                      rgba($color-secondary-dark, 0.8)),
+                      url('../img/hero.jpg');
+  }
+```
+
+
+
+# Browser Support
+
+- Always check caniuse.com before using a modern CSS property in production
+- **Graceful Degratation** - using the newest, best features for modern browers, but using alternate options for older browsers.
+- Use `@supports` feature query to see if a feature is supported, and if so, add styles within braces
+
+```css
+@supports (clip-path: polygon(0 0)) or (-webkit-clip-path: polygon(0 0)) {
+	-webkit-clip-path: circle(50% at 50% 50%);
+	clip-path: circle(50% at 50% 50%);
+	-webkit-shape-outside: circle(50% at 50% 50%);
+	shape-outside: circle(50% at 50% 50%);
+	border-radius: none;
+}
+```
+
+
+
+# Flexbox Margin Auto
+
+- If you need to make space between flexbox items, but `justify-content` will not suffice, then you can use `margin-right: auto` or `margin-left: auto` to automatically create space between one flex item and the next.
+- This is important for situations like headers, where you may want to put two items on the left side and 3 items on the right side. `justify-content: space-between` will not work, so use `margin-right: auto` on the second item to separate the groups.
