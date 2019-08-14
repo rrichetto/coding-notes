@@ -535,3 +535,14 @@ such a large image for smaller screen sizes */
 
 - If you need to make space between flexbox items, but `justify-content` will not suffice, then you can use `margin-right: auto` or `margin-left: auto` to automatically create space between one flex item and the next.
 - This is important for situations like headers, where you may want to put two items on the left side and 3 items on the right side. `justify-content: space-between` will not work, so use `margin-right: auto` on the second item to separate the groups.
+
+
+
+
+
+# currentColor
+
+- setting something to `currentColor` (such as `border-bottom: 1px solid currentColor`) will set it to the same color as the current text color. This is especially helpful for hover effects, where the border-bottom color will automatically change to the color of the text. No need for an extra line to change both the text color and the border-bottom color.
+
+
+

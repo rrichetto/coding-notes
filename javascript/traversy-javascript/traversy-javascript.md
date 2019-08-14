@@ -1,33 +1,119 @@
-# Examining the DOM
 
-- You CAN use forEach() on a NodeList
 
-- You CANNOT use forEach() on an HTMLCollection (but you can use a regular `for` loop).
+## The Document Object Model (DOM)
 
-- To convert an HTMLCollection into an array so that you can use forEach()...
+
+
+### What is the DOM?
+
+The **Document Object Model** is a structured representation of an HTML page:
+
+- It is essentially a tree of nodes/elements created by the browser
+- You can manipulate the DOM with JavaScript
+- The DOM is object-oriented - each node/element has its own set of properties and methods.
+
+
+
+### NodeLists and HTML Collections
+
+- NodeLists and HTML collections are array-like objects, but have a few difference:
+  - HTMLCollection - you **cannot** use the forEach() method
+  - NodeList - includes text nodes and you **can** use forEach() and other array methods
+
+
+
+### Converting an HTMLCollection into an Array to enable forEach()
 
 ```javascript
-let lis = document.getElementsByTagName('li'); // HTMLCollection
-lis = Array.from(lis); // Converted to Array
+let scripts = document.scripts; // gets all scripts in the file (such as JS)
 
-lis.forEach(...)
+let scriptsArr = Array.from(scripts);
+
+scriptsArr.forEach(script => {
+  console.log(script)
+});
 ```
 
 
 
-# Multiple Element Selectors
-
-- A NodeList includes things like text nodes
+### Element Selectors
 
 ```javascript
+// Single Element Selectors
+document.getElementById();
+document.querySelector();
+
+// Multiple Element Selectors
 document.getElementsByClassName(); // returns HTMLCollection
-document.getElementsByTagName(); // returns HTMLCollection
-document.querySelectorAll(); // returns NodeList
+document.getElementsByTagName();   // returns HTMLCollection
+document.querySelectorAll();       // returns NodeList
+
 ```
 
 
 
-# .className vs .classList.contains()
+### DOM Traversal
+
+```javascript
+item.children; // HTMLCollection of children element nodes
+item.firstElementChild;
+item.lastElementChild;
+item.parentElement;
+item.nextElementSibling;
+item.previousElementSibling;
+```
+
+
+
+### Creating Elements
+
+```javascript
+document.createElement('li');
+document.createTextNode('Hello');
+parent.appendChild(item);
+```
+
+
+
+### Replacing and Removing Elements
+
+```javascript
+// Replace Element
+parent.replaceChild(newItem, oldItem);
+
+// Remove Element
+item.remove();
+item.removeChild(element);
+```
+
+
+
+### Classes and Attributes
+
+```javascript
+item.className; // string of class name(s)
+item.classList; // array-like structure containing all class names
+item.classList.add('theClass');
+item.classList.remove('theClass');
+```
+
+```javascript
+item.getAttribute('href');
+item.setAttribute('href', 'http://google.com');
+item.hasAttribute('href');
+item.removeAttribute('href');
+```
+
+
+
+### Event Bubbling & Delegation
+
+- **Event bubbling** is when an event "bubbles up" from a child element to its parent element(s)
+- **Event delegation** is when an event listener is placed on the parent element, and then we use logic to target the specific element we want.
+
+
+
+### .className vs. .classList.contains()
 
 ```javascript
 function deleteItem(e) {
@@ -35,27 +121,62 @@ function deleteItem(e) {
   exact string. This is a bad method because if you add
   a class to your CSS, this condition no longer works. */
   if (e.target.className === 'delete-item task') {
-    e.target.remove()
+    e.target.remove();
   }
 
   /* It is better to use .classList.contains('')
   to target the specific class you want */
   if (e.target.classList.contains('delete-item')) {
-    e.target.remove()
+    e.target.remove();
   }
 }
 ```
 
 
 
-# Local & Session Storage
+### Local and Session Storage
 
 - Local storage - stays until you manually clear it
 - Session storage - stays until you close the browser
+- Allows you to store key/value pairs
 - To view your storage: Open Dev Tools -> Application -> Storage
 - Storage only stores strings, so when you set a value it must be a string.
-- Use JSON.stringify to save arrays and objects.
-- Use JSON.parse if you want to later pull out those arrays and objects
+- Use `JSON.stringify()` to save arrays and objects.
+- Use `JSON.parse()` if you want to later pull out those arrays and objects
+
+```javascript
+// set storage item (you use LS and SS the same way).
+localStorage.setItem('name', 'John');
+sessionStorage.setItem('name', 'John');
+
+// get storage item
+localStorage.getItem('name');
+sessionStorage.getItem('name');
+
+// remove storage item
+localStorage.removeItem('name');
+sessionStorage.removeItem('name');
+
+// clear storage
+localStorage.clear();
+sessionStorage.clear();
+
+// Stringify to set to storage
+localStorage.setItem('keyName', JSON,stringify(value));
+
+// Parse to get from storage
+JSON.parse(localStorage.getItem('keyName'));
+```
+
+
+
+
+
+
+
+
+
+
 
 
 
