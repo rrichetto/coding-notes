@@ -2,8 +2,6 @@
 
 ## The Document Object Model (DOM)
 
-
-
 ### What is the DOM?
 
 The **Document Object Model** is a structured representation of an HTML page:
@@ -172,21 +170,57 @@ JSON.parse(localStorage.getItem('keyName'));
 
 
 
+## Object Oriented JavaScript
 
+### Constructors and the 'this' keyword
 
+- `this` refers to the current instance of the object
+- a **method** is a function that exists on an object
 
-
-
-
-
-
-# The .call() Method
-
-- `.call()` is a function that allows us to call another function from somewhere else in the current context
 ```javascript
+// Constructor function (note that normally we'd put the method on the prototype)
+function Person(name, age) {
+  this.name = name;
+  this.age = age;
+  this.sayName = function() {
+    return `My name is ${this.name}`;
+  }
+}
+
+const ryan = new Person('Ryan', 27);
+```
 
 
 
+### Prototypes
+
+- each object has a prototype, and a prototype is itself an object
+- all objects inherit their properties and methods from their prototype
+- when you are dealing with an object literal, you are inheriting from a prototype called `Object.prototype`
+- when you are dealing with objects created through a constructor function (like `Person` above), you are inheriting from `Person.prototype`
+- the browser gives us the pseudo-property or pointer called `__proto__`, which represents the `Person.prototype` (for example), or the `Object.prototype`.
+
+```javascript
+function Person(firstName, lastName) {
+  this.firstName = firstName;
+  this.lastName = lastName;
+}
+
+Person.prototype.getFullName = function(){
+  return `${this.firstName} ${this.lastName}`;
+}
+
+const john = new Person('John', 'Doe');
+
+console.log(john.getFullName()); // 'John Doe'
+```
+
+
+
+### The `.call()` Method
+
+- The `.call()` function lets us call another function (from somewhere else) in the current context
+```javascript
 // Customer constructor
 function Person(firstName, lastName) {
   this.firstName = firstName;
@@ -194,7 +228,6 @@ function Person(firstName, lastName) {
 }
 
 function Customer(firstName, lastName, phone, membership) {
-
   Person.call(this, firstName, lastName);
   // the line above is like adding:
 
@@ -207,32 +240,7 @@ function Customer(firstName, lastName, phone, membership) {
 
 
 
-# Static Methods
-
-- A static method is one you can use without needing to instatiate an object. That is, you don't need to create an object from the class using `const ryan = new Person('Ryan');`. It's just a standalone method that you call with the name of the constructor function itself.
-```javascript
-class Person {
-  constructor(name) {
-    this.name = name;
-  }
-
-  greet() {
-    return `Hello there, ${this.name}`;
-  }
-
-  static addNumbers(x, y) {
-    return x + y;
-  }
-}
-
-/* Call a static method by using the name of the
-constructor itself. No need for instantiation */
-console.log(Person.addNumbers(1, 2));
-```
-
-
-
-# Sub-Classes: Extending Classes with 'Super'
+### ES6 Classes
 
 ```javascript
 class Person {
@@ -240,17 +248,65 @@ class Person {
     this.firstName = firstName;
     this.lastName = lastName;
   }
+
+  greeting() {
+    return `Hello there ${this.firstName} ${this.lastName}`;
+  }
+
+  getsMarried(newLastName) {
+    this.lastName = newLastName;
+  }
+
+  static addNumbers(x, y) {
+    return x + y;
+  }
+}
+
+const mary = new Person('Mary', 'Williams');
+
+/* Call a static method by using the name of the
+class name itself. No need for instantiation */
+console.log(Person.addNumbers(1, 2));
+```
+
+- A static method is just a standalone method you can use without needing to instatiate an object. That is, you don't need to create an object from the class using `const ryan = new Person('Ryan');`. It's just a standalone method that you call with the name of the class name itself.
+
+
+
+### Sub-Classes: Extending Classes with `Super`
+
+```javascript
+class Person {
+  constructor(firstName, lastName) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+  }
+  
+  greeting() {
+    return `Hello there ${this.firstName} ${this.lastName}`;
+  }
 }
 
 class Customer extends Person {
   constructor(firstName, lastName, phone, membership) {
-    super(firstName, lastName);
+    super(firstName, lastName); // here we are calling the Person constructor
 
     this.phone = phone;
     this.membership = membership;
   }
+  
+  static getMembershipCost() {
+    return 500;
+  }
 }
+
+const john = new Customer('John', 'Doe', '555-555-5555', 'Standard');
+
+console.log(john.greeting()); // 'Hello there John Doe'
+console.log(Customer.getMembershipCost()); // 500
 ```
+
+
 
 
 
